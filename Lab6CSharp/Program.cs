@@ -1,58 +1,57 @@
-﻿// See https://aka.ms/new-console-template for more information
-/// <summary>
-///  Top-level statements 
-///  Код програми (оператори)  вищого рівня
-/// </summary>
-///
-Console.WriteLine("Lab6 C# ");
-AnyFunc();
+﻿using Lab6CSharp;
 
-/// <summary>
-/// 
-///  Top-level statements must precede namespace and type declarations.
-/// At the top-level methods/functions can be defined and used
-/// На верхньому рівні можна визначати та використовувати методи/функції
-/// </summary>
-void AnyFunc()
+void Task1()
 {
-    Console.WriteLine(" Some function in top-level");
-}
-Console.WriteLine("Problems 1 ");
-AnyFunc();
-//  приклад класів
-UserClass cl = new UserClass();
-cl.Name = " UserClass top-level ";
-User.UserClass cl2 = new();
-cl2.Name = " UserClass namespace User ";
-
-
-
-
-/// <summary>
-/// 
-/// Top-level statements must precede namespace and type declarations.
-/// Оператори верхнього рівня мають передувати оголошенням простору імен і типу.
-/// Створення класу(ів) або оголошенням простору імен є закіченням  іструкцій верхнього рівня
-/// 
-/// </summary>
-
-namespace User
-{
-    class UserClass
+    List<IShowable> people = new List<IShowable>
     {
-        public string Name { get; set; }
-        public UserClass()
-        {
-            Name = "NoName";
-        }
-        UserClass(string n)
-        {
-            Name = n;
-        }
-    }
+       new Person("Bohdan", "Bandura", 19),
+    new Employee("Nazar", "Boiko", 25, 10000),
+   new Officer("Vasia", "Chmut", 30, 15000, Guid.NewGuid()),
+    new Engineer("Dmytro", "Tusk", 40, 2000, 10)
+};
 
+    foreach (var pers in people)
+    {
+        Console.WriteLine($"{pers.GetType().Name}    {pers.ShowInfo()}");
+    }
 }
-class UserClass
+void Task2()
 {
-    public string Name { get; set; }
+    List<IFunction> functions = new List<IFunction>
+{
+ new Line(1,2),
+    new Quadratic(1,2,3),
+    new Hyperbola(5)
+};
+    double x = 4;
+    foreach (var func in functions)
+    {
+        Console.WriteLine(func);
+        Console.WriteLine($"X = {x}");
+        Console.WriteLine($"Y = {func.Calculate(x)}");
+    }
 }
+void Task3()
+{
+    Engineer engineer = new Engineer("Bob", "Chuck", 25, 155000, 5);
+    foreach (var item in engineer)
+    {
+        Console.WriteLine(item);
+    }
+}
+
+Task1();
+GC.Collect();
+Thread.Sleep(2000);
+Console.WriteLine("Press any key to continue...");
+Console.ReadKey();
+Console.Clear();
+Task2();
+Console.WriteLine("Press any key to continue...");
+Console.ReadKey();
+Console.Clear();
+Task3();
+
+
+
+
